@@ -13,7 +13,7 @@ verbose = False
 
 # define input & output files
 box_number = 1
-in_file = "OSTREOBIUM.csv"
+in_file = "settings.csv"
 log_file = "log.txt"
 if verbose: print("starting script - box "+str(box_number)) 
 
