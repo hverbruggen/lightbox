@@ -15,21 +15,21 @@ verbose = False
 box_number = 1
 in_file = "settings.csv"
 log_file = "log.txt"
-if verbose: print("starting script - box "+str(box_number)) 
+if verbose: print("starting script - box "+str(box_number))
 
 # set up humidity sensor
 DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = 26
 
 # set up fan
-fanPin = 4
+fanPin = 25
 fanControl = PWMLED(fanPin)
 fanSpeed = .6
 
 # set up white/nir strips (they are controlled as if they were r & g channels of rgb strip)
 # there is capacity for another channel on this driver
-wnCLKPin = 17
-wnDATPin = 27
+wnCLKPin = 23
+wnDATPin = 24
 wnStrip = LEDStrip(wnCLKPin,wnDATPin)
 white = 100
 nir = 100
@@ -53,7 +53,7 @@ def reload_input():   # reads the instructions from the csv file
 		reader = csv.DictReader(reader)
 		for row in reader:
 			time = row['time']
-			data[time] = row    
+			data[time] = row
 	if verbose: print("    done")
 def store_day_log():   # renames and stores the log file at the end of the day
 	if verbose: print("  performing end-of-day log maintenance")
@@ -74,7 +74,7 @@ def update_settings_and_log():  # updates the LED and fan settings, reads out th
 
 	# this entire bit of code is just here to help the program get to the right settings after a crash and reboot
 	# it finds the closest instruction before the present time (or the last of the previous day if there are no instructions before present time)
-	if not time_code_now in data.keys():  
+	if not time_code_now in data.keys():
 		m = re.split(':',time_code_now)
 		cur = int(m[0]) * 60 + int(m[1])
 		bestKey = None
